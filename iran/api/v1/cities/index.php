@@ -6,4 +6,4 @@ use App\Utilities\Response;
 
 $cs = new CityService();
 $result = $cs->getCities((object)[1,2,3,4,5,6,7]);
-echo Response::respond($result,200);
+Response::respondAndDie($result,Response::HTTP_OK);

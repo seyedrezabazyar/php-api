@@ -3,7 +3,8 @@
 include_once 'App/iran.php';
 
 spl_autoload_register(function ($class){
-    $class_file = __DIR__ . '/' . str_replace('\\', '/', $class) . '.php';
+    // $class_file = __DIR__ . $class . '.php';  #for Windows OS
+    $class_file = __DIR__ . '/' . str_replace('\\', '/', $class) . '.php';  #for Mac OS
     if(!(file_exists($class_file) and is_readable($class_file)))
         die("$class not found!");
     include_once $class_file;
