@@ -1,6 +1,6 @@
 <?php
 try {
-    $pdo = new PDO("mysql:dbname=iran;host=localhost", 'root', '');
+    $pdo = new PDO("mysql:dbname=iran;host=localhost", 'root', 'root');
     $pdo->exec("set names utf8;");
     // echo "Connection OK!";
 } catch (PDOException $e) {
@@ -119,8 +119,8 @@ function deleteProvince($province_id)
 // $data = getProvinces();
 // $data = deleteCity(443);
 // $data = changeCityName(445,"شهر جدید");
-$data = getCities(['province_id' => 1]);
-$data = json_encode($data);
-echo "<pre>";
-print_r($data);
-echo "<pre>";
+//$data = getCities(['province_id' => 1]);
+//$data = json_encode($data);
+//echo "<pre>";
+//print_r($data);
+//echo "<pre>";
