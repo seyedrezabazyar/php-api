@@ -16,9 +16,12 @@ function isValidCity($data)
 }
 function isValidProvince($data)
 {
-    return empty($data['name']) ? false : true;
+    #It's better to validate data in database
+    $province_id = intval($data['province_id'] ?? 0);
+    if ($province_id < 1 OR $province_id > 31)
+        return false;
+    return true;
 }
-
 
 #================  Read Operations  =================
 function getCities($data = null)
