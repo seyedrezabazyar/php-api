@@ -11,11 +11,12 @@ Response::respondAndDie($request_body);
 
 switch ($request_method){
     case 'GET':
+        $city_service = new CityService();
         $province_id = $_GET['province_id'] ?? null;
         $request_data = [
             'province_id' => $province_id
         ];
-        $response = getCities($request_data);
+        $response = $city_service->getCities($request_data);
         Response::respondAndDie($response,Response::HTTP_OK);
  
     case 'POST':
