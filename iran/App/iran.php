@@ -18,7 +18,7 @@ function isValidProvince($data)
 {
     #It's better to validate data in database
     $province_id = intval($data['province_id'] ?? 0);
-    if ($province_id < 1 OR $province_id > 31)
+    if ($province_id < 1 or $province_id > 31)
         return false;
     return true;
 }

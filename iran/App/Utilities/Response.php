@@ -2,9 +2,9 @@
 
 namespace App\Utilities;
 
-class Response{
-
-    public static function respond($data,$status_code = self::HTTP_OK)
+class Response
+{
+    public static function respond($data, $status_code = self::HTTP_OK)
     {
         # Set http headers
         self::setHeaders($status_code);
@@ -18,8 +18,9 @@ class Response{
         return json_encode($response);
     }
 
-    public static function respondAndDie($data,$status_code = self::HTTP_OK){
-        die(self::respond($data,$status_code));
+    public static function respondAndDie($data, $status_code = self::HTTP_OK)
+    {
+        die(self::respond($data, $status_code));
     }
 
     public static function setHeaders($status_code)
