@@ -21,4 +21,10 @@ class CityService
         $result = changeCityName($city_id, $name);
         return $result;
     }
+
+    public function deleteCity($city_id)
+    {
+        $result = deleteCity($city_id);
+        return $result;
+    }
 }

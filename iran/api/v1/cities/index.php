@@ -38,7 +38,11 @@ switch ($request_method) {
         Response::respondAndDie($resault, Response::HTTP_OK);
 
     case 'DELETE':
-        Response::respondAndDie(['DELETE Request'], Response::HTTP_OK);
+        $city_id = $_GET['city_id'] ?? null;
+        if (!is_numeric($city_id) or is_null($city_id))
+            Response::respondAndDie(['Invalid City ID...', Response::HTTP_NOT_ACCEPTABLE]);
+        $resault =  $city_service->deleteCity($city_id);
+        Response::respondAndDie($resault, Response::HTTP_OK);
 
     default:
         Response::respondAndDie(['invalid request method'], Response::HTTP_METHOD_NOT_ALLOWED);
