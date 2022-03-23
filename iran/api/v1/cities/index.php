@@ -8,10 +8,10 @@ use App\Utilities\Response;
 $request_method = $_SERVER['REQUEST_METHOD'];
 
 $request_body = json_decode(file_get_contents('php://input'), true);
+$city_service = new CityService();
 
 switch ($request_method) {
     case 'GET':
-        $city_service = new CityService();
         $province_id = $_GET['province_id'] ?? null;
         # Do validate :  $province_id
         // if (!$province_validator->is_valid_province($province_id))
@@ -20,10 +20,15 @@ switch ($request_method) {
             'province_id' => $province_id
         ];
         $response = $city_service->getCities($request_data);
+        if (empty($response))
+            Response::respondAndDie($response, Response::HTTP_NOT_FOUND);
         Response::respondAndDie($response, Response::HTTP_OK);
 
     case 'POST':
-        Response::respondAndDie($_POST, Response::HTTP_OK);
+        if (!isValidCity($request_body))
+            Response::respondAndDie(['Invalid City Data...', Response::HTTP_NOT_ACCEPTABLE]);
+        $response = $city_service->createCity($request_body);
+        Response::respondAndDie($response, Response::HTTP_CREATED);
 
     case 'PUT':
         Response::respondAndDie(['PUT Request'], Response::HTTP_OK);
