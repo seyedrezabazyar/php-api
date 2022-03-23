@@ -31,7 +31,11 @@ switch ($request_method) {
         Response::respondAndDie($response, Response::HTTP_CREATED);
 
     case 'PUT':
-        Response::respondAndDie(['PUT Request'], Response::HTTP_OK);
+        [$city_id, $city_name] = [$request_body['city_id'], $request_body['name']];
+        if (!is_numeric($city_id) or empty($city_name))
+            Response::respondAndDie(['Invalid City Data...', Response::HTTP_NOT_ACCEPTABLE]);
+        $resault =  $city_service->updateCityName($city_id, $city_name);
+        Response::respondAndDie($resault, Response::HTTP_OK);
 
     case 'DELETE':
         Response::respondAndDie(['DELETE Request'], Response::HTTP_OK);
