@@ -18,6 +18,7 @@ switch ($request_method) {
         //     Response::respondAndDie(['ERROR: Invalid Province...', Response::HTTP_NOT_FOUND]);
         $request_data = [
             'province_id' => $province_id,
+            'fields' => $_GET['fields'] ?? null,
             'page' => $_GET['page'] ?? null,
             'pagesize' => $_GET['pagesize'] ?? null
         ];
