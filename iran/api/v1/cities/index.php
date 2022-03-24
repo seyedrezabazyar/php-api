@@ -17,7 +17,9 @@ switch ($request_method) {
         // if (!$province_validator->is_valid_province($province_id))
         //     Response::respondAndDie(['ERROR: Invalid Province...', Response::HTTP_NOT_FOUND]);
         $request_data = [
-            'province_id' => $province_id
+            'province_id' => $province_id,
+            'page' => $_GET['page'] ?? null,
+            'pagesize' => $_GET['pagesize'] ?? null
         ];
         $response = $city_service->getCities($request_data);
         if (empty($response))
