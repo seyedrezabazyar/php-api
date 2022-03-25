@@ -4,6 +4,7 @@ include_once '../../../loader.php';
 
 use App\Services\CityService;
 use App\Utilities\Response;
+use App\Utilities\CacheUtility;
 
 $request_method = $_SERVER['REQUEST_METHOD'];
 
@@ -12,6 +13,7 @@ $city_service = new CityService();
 
 switch ($request_method) {
     case 'GET':
+        CacheUtility::start();
         $province_id = $_GET['province_id'] ?? null;
         # Do validate :  $province_id
         // if (!$province_validator->is_valid_province($province_id))
@@ -26,7 +28,8 @@ switch ($request_method) {
         $response = $city_service->getCities($request_data);
         if (empty($response))
             Response::respondAndDie($response, Response::HTTP_NOT_FOUND);
-        Response::respondAndDie($response, Response::HTTP_OK);
+        echo Response::respond($response, Response::HTTP_OK);
+        CacheUtility::end();
 
     case 'POST':
         if (!isValidCity($request_body))
