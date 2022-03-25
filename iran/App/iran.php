@@ -30,7 +30,11 @@ function getCities($data = null)
     $province_id = $data['province_id'] ?? null;
     $page = $data['page'] ?? null;
     $fields = $data['fields'] ?? '*';
+    $orderby = $data['orderby'] ?? null;
     $pagesize = $data['pagesize'] ?? null;
+    $orderbyStr = '';
+    if (!is_null($orderby))
+        $orderbyStr = "order by $orderby";
     $limit = '';
     if (is_numeric($page) and is_numeric($pagesize)) {
         $start = ($page - 1) * $pagesize;
@@ -41,7 +45,7 @@ function getCities($data = null)
         $where = "where province_id = {$province_id} ";
     }
     # validate fields
-    $sql = "select $fields from city $where $limit";
+    $sql = "select $fields from city $where $orderbyStr $limit";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     $records = $stmt->fetchAll(PDO::FETCH_OBJ);
