@@ -1,0 +1,17 @@
+{
+    "name": "seyedrezabazyar/iran",
+    "require": {
+        "firebase/php-jwt": "^6.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Seyedrezabazyar\\Iran\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "seyedrezabazyar",
+            "email": "seyedrezabazyar@gmail.com"
+        }
+    ]
+}

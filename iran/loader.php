@@ -1,8 +1,13 @@
 <?php
 
-define('CACHE_ENABLED', 1);
+# cache constants
+define('CACHE_ENABLED', 0); // Enable or Disable Cache
 define('CACHE_DIR', __DIR__ . '/cache');
 
+# Authentication constants
+define('JWT_KEY', 'IranProjectKey_HVggSfNJX+wZQd=%%_##PF^W6G#Hym');
+define('JWT_ALG', 'HS256');
+include_once 'vendor/autoload.php';
 include_once 'App/iran.php';
 
 spl_autoload_register(function ($class) {

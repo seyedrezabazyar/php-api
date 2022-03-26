@@ -1,4 +1,7 @@
 <?php
+
+use \Firebase\JWT\JWT;
+
 try {
     $pdo = new PDO("mysql:dbname=iran;host=localhost", 'root', 'root');
     $pdo->exec("set names utf8;");
@@ -121,6 +124,39 @@ function deleteProvince($province_id)
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     return $stmt->rowCount();
+}
+
+#================  Auth Operations  =================
+# its our user database 😀
+$users = [
+    (object)['id' => 1, 'name' => 'Reza', 'email' => 'reza@gmail.com', 'role' => 'admin', 'allowed_provinces' => []],
+    (object)['id' => 2, 'name' => 'Ali', 'email' => 'ali@gmail.com', 'role' => 'Governor', 'allowed_provinces' => [7, 8, 9]],
+    (object)['id' => 3, 'name' => 'Hossein', 'email' => 'hossein@gmail.com', 'role' => 'mayor', 'allowed_provinces' => [3]],
+    (object)['id' => 4, 'name' => 'Mohammad', 'email' => 'mohammad@gmail.com', 'role' => 'president', 'allowed_provinces' => []]
+];
+
+function getUserById($id)
+{
+    global $users;
+    foreach ($users as $user)
+        if ($user->id == $id)
+            return $user;
+    return null;
+}
+
+function getUserByEmail($email)
+{
+    global $users;
+    foreach ($users as $user)
+        if (strtolower($user->email) == strtolower($email))
+            return $user;
+    return null;
+}
+
+function createApiToken($user)
+{
+    $payload = ['user_id' => $user->id];
+    return JWT::encode($payload, JWT_KEY, JWT_ALG);
 }
 
 // Function Tests

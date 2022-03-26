@@ -6,6 +6,9 @@ use App\Services\CityService;
 use App\Utilities\Response;
 use App\Utilities\CacheUtility;
 
+# Check Authorization (use a JWT token)
+# Get request token and validate it
+
 $request_method = $_SERVER['REQUEST_METHOD'];
 
 $request_body = json_decode(file_get_contents('php://input'), true);
