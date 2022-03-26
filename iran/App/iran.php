@@ -1,6 +1,8 @@
 <?php
 
 use \Firebase\JWT\JWT;
+use \Firebase\JWT\Key;
+
 
 try {
     $pdo = new PDO("mysql:dbname=iran;host=localhost", 'root', 'root');
@@ -162,7 +164,8 @@ function createApiToken($user)
 function isValidToken($jwt_token)
 {
     try {
-        $payload = JWT::decode($jwt_token, JWT_KEY, array(JWT_ALG));
+        // $payload = JWT::decode($jwt_token, JWT_KEY, array(JWT_ALG)); # Old JWT Version
+        $payload = JWT::decode($jwt_token, new Key(JWT_KEY, JWT_ALG));
         return $payload;
     } catch (Exception $e) {
         return false;

@@ -9,7 +9,7 @@ use App\Utilities\CacheUtility;
 # Check Authorization (use a JWT token)
 $token = getBearerToken();
 $payload = isValidToken($token);
-Response::respondAndDie($payload, Response::HTTP_NOT_FOUND);
+Response::respondAndDie($payload, Response::HTTP_OK);
 # Get request token and validate it
 
 $request_method = $_SERVER['REQUEST_METHOD'];
