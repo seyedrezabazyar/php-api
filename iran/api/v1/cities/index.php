@@ -8,8 +8,12 @@ use App\Utilities\CacheUtility;
 
 # Check Authorization (use a JWT token)
 $token = getBearerToken();
-$payload = isValidToken($token);
-Response::respondAndDie($payload, Response::HTTP_OK);
+$user = isValidToken($token);
+if (!$user)
+    Response::respondAndDie(['Invalid token!'], Response::HTTP_UNAUTHORIZED);
+
+# Authorization OK
+
 # Get request token and validate it
 
 $request_method = $_SERVER['REQUEST_METHOD'];
@@ -36,7 +40,7 @@ switch ($request_method) {
             Response::respondAndDie($response, Response::HTTP_NOT_FOUND);
         echo Response::respond($response, Response::HTTP_OK);
         CacheUtility::end();
-
+        die();
     case 'POST':
         if (!isValidCity($request_body))
             Response::respondAndDie(['Invalid City Data...', Response::HTTP_NOT_ACCEPTABLE]);

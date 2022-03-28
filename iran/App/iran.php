@@ -166,7 +166,8 @@ function isValidToken($jwt_token)
     try {
         // $payload = JWT::decode($jwt_token, JWT_KEY, array(JWT_ALG)); # Old JWT Version
         $payload = JWT::decode($jwt_token, new Key(JWT_KEY, JWT_ALG));
-        return $payload;
+        $user = getUserById($payload->user_id);
+        return $user;
     } catch (Exception $e) {
         return false;
     }
