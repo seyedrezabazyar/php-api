@@ -131,10 +131,10 @@ function deleteProvince($province_id)
 #================  Auth Operations  =================
 # its our user database 😀
 $users = [
-    (object)['id' => 1, 'name' => 'Reza', 'email' => 'reza@gmail.com', 'role' => 'admin', 'allowed_provinces' => [1]],
+    (object)['id' => 1, 'name' => 'Reza', 'email' => 'reza@gmail.com', 'role' => 'admin', 'allowed_provinces' => []],
     (object)['id' => 2, 'name' => 'Ali', 'email' => 'ali@gmail.com', 'role' => 'Governor', 'allowed_provinces' => [7, 8, 9]],
     (object)['id' => 3, 'name' => 'Hossein', 'email' => 'hossein@gmail.com', 'role' => 'mayor', 'allowed_provinces' => [3]],
-    (object)['id' => 4, 'name' => 'Mohammad', 'email' => 'mohammad@gmail.com', 'role' => 'president', 'allowed_provinces' => [4, 5]]
+    (object)['id' => 4, 'name' => 'Mohammad', 'email' => 'mohammad@gmail.com', 'role' => 'president', 'allowed_provinces' => []]
 ];
 
 function getUserById($id)
@@ -175,12 +175,8 @@ function isValidToken($jwt_token)
 
 function hasAccessToProvince($user, $province_id)
 {
-    if (in_array($province_id, $user->allowed_provinces)) {
-        return true;
-    }
-    return false;
-    // return (in_array($user->role, ['admin', 'president']) or
-    //     in_array($province_id, $user->allowed_provinces));
+    return (in_array($user->role, ['admin', 'president']) or
+        in_array($province_id, $user->allowed_provinces));
 }
 
 /** 

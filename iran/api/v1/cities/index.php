@@ -7,6 +7,7 @@ use App\Utilities\Response;
 use App\Utilities\CacheUtility;
 
 # Check Authorization (use a JWT token)
+# header schema >>> Authorization: Bearer <token>
 $token = getBearerToken();
 $user = isValidToken($token);
 if (!$user)
