@@ -23,8 +23,10 @@ $city_service = new CityService();
 
 switch ($request_method) {
     case 'GET':
-        CacheUtility::start();
         $province_id = $_GET['province_id'] ?? null;
+        if (!hasAccessToProvince($user, $province_id))
+            Response::respondAndDie(['You have no access to this province'], Response::HTTP_FORBIDDEN);
+        CacheUtility::start();
         # Do validate :  $province_id
         // if (!$province_validator->is_valid_province($province_id))
         //     Response::respondAndDie(['ERROR: Invalid Province...', Response::HTTP_NOT_FOUND]);
